@@ -1,6 +1,6 @@
 interface AmountInputProps {
   value?: number;
-  onChange: (newValue: string) => void;
+  onChange: (newValue: number) => void;
 }
 
 export default function AmountInput({value, onChange}: AmountInputProps) {
@@ -11,7 +11,13 @@ export default function AmountInput({value, onChange}: AmountInputProps) {
       </label>
       <input 
         class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        name="amount" placeholder="0.0" value={value || 0} required onChange={(e) => onChange(e.target.value)}
+        name="amount" 
+        id="amount"
+        type="number"
+        placeholder="0.0" 
+        value={value || 0} required onChange={(e) => {
+          onChange(e.target.value)
+        }}
       />
     </div>
   )

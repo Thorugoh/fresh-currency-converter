@@ -18,9 +18,10 @@ export const handler: Handlers<Data> = {
     const from = url.searchParams.get('from') || DEFAULT_CURRENCY; 
     const to = url.searchParams.get('to') || DEFAULT_CURRENCY;
     const csResponse = await fetch(`https://api.currencyscoop.com/v1/convert?api_key=${Deno.env.get('API_KEY')}&from=${from}&to=${to}&amount=${amount}`)
-    const csResult = await csResponse.json();
+    const res = await csResponse.json()
+    
     return ctx.render({
-      convertedAmount: csResult.response.value, amount, from, to
+      convertedAmount: res.response.value, amount, from, to
     })
   }
 }

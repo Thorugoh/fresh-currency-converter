@@ -3,7 +3,7 @@ import supportedCurrencies from "../supported-currencies.json" assert {
 };
 import AmountInput from "../components/AmountInput.tsx";
 import CurrencySelect from "../components/CurrencySelect.tsx";
-import { useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 
 const currencyCodes = Object.entries(supportedCurrencies.fiats).map((
   [, currency],
@@ -20,7 +20,7 @@ export default function ConverterForm(
 ) {
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
-    amount,
+    amount: amount,
     from,
     to,
   });
@@ -28,7 +28,10 @@ export default function ConverterForm(
   return (
     <form action="/convert" onSubmit={() => setSubmitted(true)}>
       <div class="flex">
-        <AmountInput value={0} onChange={() => {}} />
+        <AmountInput 
+          value={form.amount} 
+          onChange={(amount) => setForm({ ...form, amount })} 
+          />
         <CurrencySelect
           currencies={currencyCodes}
           defaultCurrency="USD"
